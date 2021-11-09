@@ -1,0 +1,395 @@
+# baseURI: http://example.org/ANBPM
+# prefix: ANBPM
+
+@prefix ANBPM: <http://example.org/ANBPM#> .
+@prefix fibo-be-oac-exec: <https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ANBPM>
+  rdf:type owl:Ontology ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+ANBPM:ARole
+  rdf:type rdf:Property ;
+.
+ANBPM:Activity
+  rdf:type owl:Class ;
+  rdfs:comment "Former 'Atomar', naming and subclass-structure in accordance to BPMN 2.0 (OMG 2009)" ;
+  rdfs:label "Activity" ;
+  rdfs:subClassOf ANBPM:FlowNode ;
+.
+ANBPM:Aim
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:Annotation
+  rdf:type owl:Class ;
+  rdfs:label "Annotation" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:Association
+  rdf:type owl:Class ;
+  rdfs:comment "„An Association is used to link information and Artifacts with BPMN graphical elements. [â€¦] An arrowhead on the Association indicates a direction of flow (e.g., data), when appropriate.“ (Axway et al., 2009: p.21)\" (Brun 2010)" ;
+  rdfs:label "Association" ;
+.
+ANBPM:BPMN20
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:ProcessElements ;
+.
+ANBPM:BusinessRuleTask
+  rdf:type owl:Class ;
+  rdfs:label "BusinessRuleTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:CallActivity
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Call Activity identifies a point in the Process where a global Process or a Global Task is used. The Call
+Activity acts as a ‘wrapper’ for the invocation of a global Process or Global Task within the execution.\" (OMG 2009)""" ;
+  rdfs:subClassOf ANBPM:Activity ;
+.
+ANBPM:ConditionalIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ConditionalIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:ConditionalStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "ConditionalStartEvent" ;
+  rdfs:subClassOf ANBPM:StartEvent ;
+.
+ANBPM:Control
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:ControlObjective
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Data
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:DataAssociation
+  rdf:type owl:Class ;
+  rdfs:comment "„Data Associations are used to move data between Data Objects, Properties, and inputs and outputs of Activities, Processes, and Global Tasks. [â€¦] The purpose of retrieving data from Data Objects or Process Data Inputs is to fill the Activities inputs and later push the output values from the execution of the Activity back into Data Objects or Process Data Outputs.“ (Axway et al., 2009: p.199). It associates e.g. a task to a document\" (Brun 2010)" ;
+  rdfs:label "DataAssociation" ;
+  rdfs:subClassOf ANBPM:Association ;
+.
+ANBPM:DataInput
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DataOutput
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DefinedRequirements
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:Description
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:Documents
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:EndEvent
+  rdf:type owl:Class ;
+  rdfs:label "EndEvent" ;
+  rdfs:subClassOf ANBPM:Event ;
+.
+ANBPM:ErrorEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "ErrorEndEvent" ;
+  rdfs:subClassOf ANBPM:EndEvent ;
+.
+ANBPM:ErrorIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ErrorIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:Event
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:ExclusiveGateway
+  rdf:type owl:Class ;
+  rdfs:label "ExclusiveGateway" ;
+  rdfs:subClassOf ANBPM:Gateway ;
+.
+ANBPM:Extensions
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:ProcessElements ;
+.
+ANBPM:External_Parties
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:FlowElement
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:FlowElementContainer
+  rdf:type owl:Class ;
+  rdfs:comment "Pool is the graphical representation of a Participant in a Collaboration" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:FlowNode
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:FlowElement ;
+.
+ANBPM:FlowObject
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:Gateway
+  rdf:type owl:Class ;
+  rdfs:comment """\"Gateways are used to control how the Process flows (how Tokens flow) through Sequence Flow as they converge
+and diverge within a Process.\" (OMG 2009)""" ;
+  rdfs:label "Gateway" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:Group
+  rdf:type owl:Class ;
+  rdfs:label "Group" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:ID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:ITSystem
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:InclusiveGateway
+  rdf:type owl:Class ;
+  rdfs:label "InclusiveGateway" ;
+  rdfs:subClassOf ANBPM:Gateway ;
+.
+ANBPM:IntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "IntermediateEvent" ;
+  rdfs:subClassOf ANBPM:Event ;
+.
+ANBPM:KPI
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Label
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:Lane
+  rdf:type owl:Class ;
+  rdfs:comment """Lanes are used to organize and categorize Activities within a Pool. The meaning of the Lanes is up to the modeler.
+BPMN does not specify the usage of Lanes""" ;
+  rdfs:subClassOf ANBPM:Participant ;
+.
+ANBPM:Language
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:ManualTask
+  rdf:type owl:Class ;
+  rdfs:label "ManualTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:Measure
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:MessageEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageEndEvent" ;
+  rdfs:subClassOf ANBPM:EndEvent ;
+.
+ANBPM:MessageFlow
+  rdf:type owl:Class ;
+  rdfs:comment "The BPMN modeling objects and shows how these objects can connect to one another through Message Flow. (Axway et al., 2009: p.35 ) (Brun 2010)" ;
+  rdfs:label "MessageFlow" ;
+  rdfs:subClassOf ANBPM:FlowObject ;
+.
+ANBPM:MessageIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:MessageStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageStartEvent" ;
+  rdfs:subClassOf ANBPM:StartEvent ;
+.
+ANBPM:ModelCreationDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:date ;
+.
+ANBPM:OrgUnits
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:ParallelGateway
+  rdf:type owl:Class ;
+  rdfs:label "ParallelGateway" ;
+  rdfs:subClassOf ANBPM:Gateway ;
+.
+ANBPM:Participant
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:PartofProcessModel
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:ProcessElements ;
+.
+ANBPM:Pool
+  rdf:type owl:Class ;
+  rdfs:comment "Pool is the graphical representation of a Participant in a Collaboration" ;
+  rdfs:subClassOf ANBPM:Participant ;
+.
+ANBPM:Process
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:FlowElementContainer ;
+.
+ANBPM:ProcessElements
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+ANBPM:ProcessModel
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+ANBPM:ProcessType
+  rdf:type owl:DatatypeProperty ;
+.
+ANBPM:Products
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:ReceiveTask
+  rdf:type owl:Class ;
+  rdfs:label "ReceiveTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:ReferencedControls
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedKPI
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedMeasures
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedNorm
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedRisk
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedTouchpoint
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:Resource
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Result
+  rdf:type owl:DatatypeProperty ;
+.
+ANBPM:Risk
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Role
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:ScriptTask
+  rdf:type owl:Class ;
+  rdfs:label "ScriptTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:SendTask
+  rdf:type owl:Class ;
+  rdfs:label "SendTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:SequenceFlow
+  rdf:type owl:Class ;
+  rdfs:label "SequenceFlow" ;
+  rdfs:subClassOf ANBPM:FlowObject ;
+.
+ANBPM:ServiceTask
+  rdf:type owl:Class ;
+  rdfs:label "ServiceTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:StartEvent
+  rdf:type owl:Class ;
+  rdfs:label "StartEvent" ;
+  rdfs:subClassOf ANBPM:Event ;
+.
+ANBPM:SubProcess
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Activity ;
+.
+ANBPM:Task
+  rdf:type owl:Class ;
+  rdfs:label "Task" ;
+  rdfs:subClassOf ANBPM:Activity ;
+.
+ANBPM:TerminateEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "TerminateEndEvent" ;
+  rdfs:subClassOf ANBPM:EndEvent ;
+.
+ANBPM:ThrowingIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ThrowingIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:TimerIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "TimerIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:TimerStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "TimerStartEvent" ;
+  rdfs:subClassOf ANBPM:StartEvent ;
+.
+ANBPM:Touchpoint
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Trigger
+  rdf:type owl:DatatypeProperty ;
+.
+ANBPM:UsedDocument
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:UsedExternalParties
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:UsedITSystem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:Activity ;
+.
+ANBPM:UsedOrgUnit
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:UsedProducts
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:UsedResource
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:UsedRole
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:UserTask
+  rdf:type owl:Class ;
+  rdfs:label "UserTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.

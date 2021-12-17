@@ -1,0 +1,760 @@
+# baseURI: http://example.org/ANBPM
+# imports: http://example.org/AutomationDegree
+# imports: http://example.org/ITSystems
+# imports: http://example.org/NOGA
+# imports: http://ikm-group.ch/archimeo/apqc
+# prefix: ANBPM
+
+@prefix ANBPM: <http://example.org/ANBPM#> .
+@prefix fibo-be-oac-exec: <https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://example.org/ANBPM>
+  rdf:type owl:Ontology ;
+  owl:imports <http://example.org/AutomationDegree> ;
+  owl:imports <http://example.org/ITSystems> ;
+  owl:imports <http://example.org/NOGA> ;
+  owl:imports <http://ikm-group.ch/archimeo/apqc> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+ANBPM:ACME_AG
+  rdf:type ANBPM:Pool ;
+  ANBPM:BlackboxPool "false"^^xsd:boolean ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Activity
+  rdf:type owl:Class ;
+  rdfs:comment "Former 'Atomar', naming and subclass-structure in accordance to BPMN 2.0 (OMG 2009)" ;
+  rdfs:label "Activity" ;
+  rdfs:subClassOf ANBPM:FlowNode ;
+.
+ANBPM:Aim
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:Annotation
+  rdf:type owl:Class ;
+  rdfs:label "Annotation" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:Applicant
+  rdf:type ANBPM:Pool ;
+  ANBPM:BlackboxPool "true"^^xsd:boolean ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Applicant_data_is_completely_deleted
+  rdf:type ANBPM:EndEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Applicant_has_agreed
+  rdf:type ANBPM:IntermediateEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Applicant_has_received_cancellation_and_applicant_data_has_been_deleted
+  rdf:type ANBPM:EndEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Applicant_is_invited_to_a_conversation
+  rdf:type ANBPM:IntermediateEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Applicant_is_not_suitable
+  rdf:type ANBPM:IntermediateEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Applicant_is_suitable
+  rdf:type ANBPM:IntermediateEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Applicant_refused
+  rdf:type ANBPM:IntermediateEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Applicant_suitable
+  rdf:type ANBPM:ExclusiveGateway ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Application_Document
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Application_formally_examined_and_accepted
+  rdf:type ANBPM:StartEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Application_is_rejected
+  rdf:type ANBPM:IntermediateEvent ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Application_received
+  rdf:type ANBPM:MessageStartEvent ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Application_status
+  rdf:type ANBPM:ExclusiveGateway ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Appointment_to_arrange_job_interview
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_2_Interview_candidates_10457> ;
+  ANBPM:Description "In order to complete the candidate's assessment and to fill the position, an interview with the candidate must be agreed. In this step, personal data will be processed with the consent of the candidate." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Assess_applicants
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_3_Test_candidates_10458> ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:BPMN20
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:ProcessElements ;
+.
+ANBPM:BlackboxPool
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:Pool ;
+  rdfs:range xsd:boolean ;
+.
+ANBPM:BusinessRuleTask
+  rdf:type owl:Class ;
+  rdfs:label "BusinessRuleTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:CallActivity
+  rdf:type owl:Class ;
+  rdfs:comment """\"A Call Activity identifies a point in the Process where a global Process or a Global Task is used. The Call
+Activity acts as a ‘wrapper’ for the invocation of a global Process or Global Task within the execution.\" (OMG 2009)""" ;
+  rdfs:subClassOf ANBPM:Activity ;
+.
+ANBPM:Candidate_Selection
+  rdf:type ANBPM:ProcessModel ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_Screen_and_select_candidates_20123> ;
+  ANBPM:Description "Candidate selection is the most crucial step in filling a vacant position. The applications are subject to a professional examination by a specialist manager, which determines the suitability of the candidate in relation to the advertised profile. If there is an interesting application, an interview will be arranged in order to get to know the candidates in person and to obtain the professional qualifications, for example. by testing tasks." ;
+  ANBPM:DomainAutomationDegree <http://example.org/AutomationDegree#Manual> ;
+  ANBPM:DomainIndustry <http://example.org/NOGA#J_INFORMATION_AND_COMMUNICATION> ;
+.
+ANBPM:Check_applicant
+  rdf:type ANBPM:BusinessRuleTask ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_3_Test_candidates_10458> ;
+  ANBPM:Description "Within this business rule activity, the decision is made whether to accept or reject the applicant. This is determined by predefined criteria." ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Check_the_content_of_the_application
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_5_Manage_applicant_information_10444> ;
+  ANBPM:Description "The application is checked for the fit and skills of the candidate by the appropriate manager. The personal data from the application documents are processed with the consent of the applicant." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Commercial_Employee
+  rdf:type ANBPM:Lane ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:ConditionalIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ConditionalIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:ConditionalStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "ConditionalStartEvent" ;
+  rdfs:subClassOf ANBPM:StartEvent ;
+.
+ANBPM:Conduct_an_interview
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_2_Interview_candidates_10457> ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Confirmation_Template
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Contract
+  rdf:type ANBPM:EndEvent ;
+.
+ANBPM:Control
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:ControlObjective
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Create_rejection_and_send
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_4_Select_and_reject_candidates_10459> ;
+  ANBPM:Description "In this step, the cancellation is created and communicated to the applicant to close the application process.The applicant has consented to the processing of personal data." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Create_rejection_and_send2
+  rdf:type ANBPM:Activity ;
+  ANBPM:Description "In this step, the cancellation is created and communicated to the applicant to close the application process.The applicant has consented to the processing of personal data." ;
+.
+ANBPM:Data
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:DataInput
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DataOutput
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:Description
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessElements ;
+  rdfs:domain ANBPM:ProcessModel ;
+  rdfs:range xsd:string ;
+.
+ANBPM:Documents
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:DomainAutomationDegree
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainChannel
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainCustomerSegment
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainFramework
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainITSystem
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainIndustry
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainKPI
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainLanguage
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainLaw
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainLevelofDetail
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainOrgUnits
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcedureDescription
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcessInput
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcessResult
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcessType
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainReferenceModel
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainRoles
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:Employee_HR
+  rdf:type ANBPM:Lane ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Employment_contract_Template
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:EndEvent
+  rdf:type owl:Class ;
+  rdfs:label "EndEvent" ;
+  rdfs:subClassOf ANBPM:Event ;
+.
+ANBPM:ErrorEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "ErrorEndEvent" ;
+  rdfs:subClassOf ANBPM:EndEvent ;
+.
+ANBPM:ErrorIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ErrorIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:Event
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:ExclusiveGateway
+  rdf:type owl:Class ;
+  rdfs:label "ExclusiveGateway" ;
+  rdfs:subClassOf ANBPM:Gateway ;
+.
+ANBPM:Exclusive_or
+  rdf:type ANBPM:ExclusiveGateway ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Executive_Manager
+  rdf:type ANBPM:Lane ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Extensions
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:ProcessElements ;
+.
+ANBPM:External_Parties
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:FlowElement
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:FlowElementContainer
+  rdf:type owl:Class ;
+  rdfs:comment "Pool is the graphical representation of a Participant in a Collaboration" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:FlowNode
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:FlowElement ;
+.
+ANBPM:FlowObject
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:Forward_application_to_manager
+  rdf:type ANBPM:Task ;
+  ANBPM:Description "In order to assess the candidates, the documents must be forwarded to the appropriate manager. Personal data will be transmitted with the consent of the applicant." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:GBTEC
+  rdf:type ANBPM:Pool ;
+  ANBPM:BlackboxPool "false"^^xsd:boolean ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Gateway
+  rdf:type owl:Class ;
+  rdfs:comment """\"Gateways are used to control how the Process flows (how Tokens flow) through Sequence Flow as they converge
+and diverge within a Process.\" (OMG 2009)""" ;
+  rdfs:label "Gateway" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:Group
+  rdf:type owl:Class ;
+  rdfs:label "Group" ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:Head_of_HR
+  rdf:type ANBPM:Role ;
+  ANBPM:Description "The HR manager is the head of department of the HR department." ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Head_of_RnD
+  rdf:type ANBPM:Role ;
+  ANBPM:Description """Leads and directs the staff in the IT development team. 
+The Head of Development is further responsible for hiring new staff in the development department.""" ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Human_Resources_Department
+  rdf:type ANBPM:Lane ;
+  ANBPM:Description """The HR department is responsible for all administrative tasks related to employees.
+
+The tasks include, among others:
+Creating and maintaining personnel files
+Activities relating to the recruitment, induction and release of an employee
+Processing employees' submitted applications for leave""" ;
+  ANBPM:ReferencedOrgUnit ANBPM:Human_Resources_Department ;
+.
+ANBPM:Human_Resources_Manager
+  rdf:type ANBPM:Role ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Human_Ressources_Manager
+  rdf:type ANBPM:Lane ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+  ANBPM:ReferencedRole ANBPM:Human_Resources_Manager ;
+.
+ANBPM:ID
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:ITSystem
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:InclusiveGateway
+  rdf:type owl:Class ;
+  rdfs:label "InclusiveGateway" ;
+  rdfs:subClassOf ANBPM:Gateway ;
+.
+ANBPM:Initiate_deletion_of_applicant_data
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_5_4_Archive_and_retain_records_of_non-_hires_10468> ;
+  ANBPM:Description "The personal data of the applicants will be deleted after discontinuation of the purpose, ie the decision on the employment relationship.In this step, personal data of the applicant will be processed with his consent." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Initiate_deletion_of_applicant_data2
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_5_4_Archive_and_retain_records_of_non-_hires_10468> ;
+  ANBPM:Description "The personal data of the applicants will be deleted after discontinuation of the purpose, ie the decision on the employment relationship.In this step, personal data of the applicant will be processed with his consent." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Initiate_deletion_of_applicant_data3
+  rdf:type ANBPM:Activity ;
+  ANBPM:Description "The personal data of the applicants will be deleted after discontinuation of the purpose, ie the decision on the employment relationship.In this step, personal data of the applicant will be processed with his consent." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:IntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "IntermediateEvent" ;
+  rdfs:subClassOf ANBPM:Event ;
+.
+ANBPM:Invitation_to_job_interview
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Invite_to_the_interview
+  rdf:type ANBPM:SendTask ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_2_Interview_candidates_10457> ;
+  ANBPM:Description "If accepted, the applicant will be invited for an interview." ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Job_advertisement
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:KPI
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Label
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:Lane
+  rdf:type owl:Class ;
+  rdfs:comment """Lanes are used to organize and categorize Activities within a Pool. The meaning of the Lanes is up to the modeler.
+BPMN does not specify the usage of Lanes""" ;
+  rdfs:subClassOf ANBPM:Participant ;
+.
+ANBPM:Language
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+.
+ANBPM:Lead_a_job_interview
+  rdf:type ANBPM:Task ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_2_Interview_candidates_10457> ;
+  ANBPM:Description "To examine the final fit of the candidate to the vacant position, a job interview is held.Personal data of the applicant will be processed with his consent." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:ManualTask
+  rdf:type owl:Class ;
+  rdfs:label "ManualTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:Measure
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:MessageEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageEndEvent" ;
+  rdfs:subClassOf ANBPM:EndEvent ;
+.
+ANBPM:MessageFlow
+  rdf:type owl:Class ;
+  rdfs:comment "The BPMN modeling objects and shows how these objects can connect to one another through Message Flow. (Axway et al., 2009: p.35 ) (Brun 2010)" ;
+  rdfs:label "MessageFlow" ;
+  rdfs:subClassOf ANBPM:FlowObject ;
+.
+ANBPM:MessageIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:MessageStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "MessageStartEvent" ;
+  rdfs:subClassOf ANBPM:StartEvent ;
+.
+ANBPM:ModelCreationDate
+  rdf:type owl:DatatypeProperty ;
+  rdfs:range xsd:date ;
+.
+ANBPM:ORG_ACME_AG
+  rdf:type ANBPM:Organisation ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:OU_Human_Resources_Department
+  rdf:type ANBPM:OrgUnits ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:OrgUnits
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Organisation
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Outlook
+  rdf:type ANBPM:ITSystem ;
+  ANBPM:DomainITSystem <http://example.org/ITSystems#MicrosoftOutlook> ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:ParallelGateway
+  rdf:type owl:Class ;
+  rdfs:label "ParallelGateway" ;
+  rdfs:subClassOf ANBPM:Gateway ;
+.
+ANBPM:Participant
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:BPMN20 ;
+.
+ANBPM:PartofProcessModel
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:ProcessElements ;
+.
+ANBPM:Pool
+  rdf:type owl:Class ;
+  rdfs:comment "Pool is the graphical representation of a Participant in a Collaboration" ;
+  rdfs:subClassOf ANBPM:Participant ;
+.
+ANBPM:Prepare_employment_contract
+  rdf:type ANBPM:Task ;
+  ANBPM:Description "With the help of an employment contract template, the job presentation is prepared for the applicant." ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Process
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:FlowElementContainer ;
+.
+ANBPM:ProcessElements
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+ANBPM:ProcessModel
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+ANBPM:ProcessType
+  rdf:type owl:DatatypeProperty ;
+.
+ANBPM:Processing_in_the_contest_of_employement
+  rdf:type ANBPM:ControlObjective ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Products
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Protocol_Interview
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:R_Applicant
+  rdf:type ANBPM:Role ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:R_Commercial_Employee
+  rdf:type ANBPM:Role ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:R_Employee_HR
+  rdf:type ANBPM:Role ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:R_Executive_Manager
+  rdf:type ANBPM:Role ;
+  ANBPM:Description "Person in charge of personnel management." ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:ReceiveTask
+  rdf:type owl:Class ;
+  rdfs:label "ReceiveTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:ReferencedControls
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedDocument
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedExternalParties
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedITSystem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:Activity ;
+.
+ANBPM:ReferencedKPI
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedMeasures
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedNorm
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedOrgUnit
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedProducts
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedRequirements
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedResource
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedRisk
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedRole
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedTouchpoint
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:Rejection
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Resource
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Result
+  rdf:type owl:DatatypeProperty ;
+.
+ANBPM:Risk
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Role
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Safety_test
+  rdf:type ANBPM:Control ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:ScriptTask
+  rdf:type owl:Class ;
+  rdfs:label "ScriptTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:SendTask
+  rdf:type owl:Class ;
+  rdfs:label "SendTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:Send_acknowledgement_of_receipt
+  rdf:type ANBPM:SendTask ;
+  ANBPM:Description "The applicant receives an acknowledgement of receipt directly." ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Send_employment_contract
+  rdf:type ANBPM:SendTask ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Send_rejection
+  rdf:type ANBPM:SendTask ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_4_Select_and_reject_candidates_10459> ;
+  ANBPM:Description "Provided that the decision within the applicant examination is rejected, a rejection will be sent to the applicant." ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:Send_rejection2
+  rdf:type ANBPM:SendTask ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_4_Select_and_reject_candidates_10459> ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:SequenceFlow
+  rdf:type owl:Class ;
+  rdfs:label "SequenceFlow" ;
+  rdfs:subClassOf ANBPM:FlowObject ;
+.
+ANBPM:ServiceTask
+  rdf:type owl:Class ;
+  rdfs:label "ServiceTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:StartEvent
+  rdf:type owl:Class ;
+  rdfs:label "StartEvent" ;
+  rdfs:subClassOf ANBPM:Event ;
+.
+ANBPM:SubProcess
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Activity ;
+.
+ANBPM:Task
+  rdf:type owl:Class ;
+  rdfs:label "Task" ;
+  rdfs:subClassOf ANBPM:Activity ;
+.
+ANBPM:Template_invitation_to_interview
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Template_rejection_slip
+  rdf:type ANBPM:Documents ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:TerminateEndEvent
+  rdf:type owl:Class ;
+  rdfs:label "TerminateEndEvent" ;
+  rdfs:subClassOf ANBPM:EndEvent ;
+.
+ANBPM:ThrowingIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "ThrowingIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:TimerIntermediateEvent
+  rdf:type owl:Class ;
+  rdfs:label "TimerIntermediateEvent" ;
+  rdfs:subClassOf ANBPM:IntermediateEvent ;
+.
+ANBPM:TimerStartEvent
+  rdf:type owl:Class ;
+  rdfs:label "TimerStartEvent" ;
+  rdfs:subClassOf ANBPM:StartEvent ;
+.
+ANBPM:Touchpoint
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Transmission_of_data_to_unauthorized_persons
+  rdf:type ANBPM:Risk ;
+  ANBPM:PartofProcessModel ANBPM:Candidate_Selection ;
+.
+ANBPM:Trigger
+  rdf:type owl:DatatypeProperty ;
+.
+ANBPM:UserTask
+  rdf:type owl:Class ;
+  rdfs:label "UserTask" ;
+  rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:application_received
+  rdf:type ANBPM:ProcessModel ;
+  rdf:type <http://ikm-group.ch/archimeo/apqc#7_2_3_Screen_and_select_candidates_20123> ;
+  ANBPM:Description "The application receipt process describes the procedure when an application is received. There is a possibility that the applicant will be invited for an interview or that the applicant will receive a rejection. This decision is determined with the help of a decision table." ;
+  ANBPM:DomainAutomationDegree <http://example.org/AutomationDegree#Manual> ;
+  ANBPM:DomainIndustry <http://example.org/NOGA#C_MANUFACTURING> ;
+.
+ANBPM:signed_employment_contract_is_available
+  rdf:type ANBPM:EndEvent ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.
+ANBPM:signed_employment_contract_received
+  rdf:type ANBPM:MessageIntermediateEvent ;
+  ANBPM:PartofProcessModel ANBPM:application_received ;
+.

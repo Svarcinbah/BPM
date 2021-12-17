@@ -12,9 +12,6 @@
   rdf:type owl:Ontology ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
-ANBPM:ARole
-  rdf:type rdf:Property ;
-.
 ANBPM:Activity
   rdf:type owl:Class ;
   rdfs:comment "Former 'Atomar', naming and subclass-structure in accordance to BPMN 2.0 (OMG 2009)" ;
@@ -23,17 +20,13 @@ ANBPM:Activity
 .
 ANBPM:Aim
   rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
   rdfs:range xsd:string ;
 .
 ANBPM:Annotation
   rdf:type owl:Class ;
   rdfs:label "Annotation" ;
   rdfs:subClassOf ANBPM:BPMN20 ;
-.
-ANBPM:Association
-  rdf:type owl:Class ;
-  rdfs:comment "„An Association is used to link information and Artifacts with BPMN graphical elements. [â€¦] An arrowhead on the Association indicates a direction of flow (e.g., data), when appropriate.“ (Axway et al., 2009: p.21)\" (Brun 2010)" ;
-  rdfs:label "Association" ;
 .
 ANBPM:BPMN20
   rdf:type owl:Class ;
@@ -72,12 +65,6 @@ ANBPM:Data
   rdf:type owl:Class ;
   rdfs:subClassOf ANBPM:BPMN20 ;
 .
-ANBPM:DataAssociation
-  rdf:type owl:Class ;
-  rdfs:comment "„Data Associations are used to move data between Data Objects, Properties, and inputs and outputs of Activities, Processes, and Global Tasks. [â€¦] The purpose of retrieving data from Data Objects or Process Data Inputs is to fill the Activities inputs and later push the output values from the execution of the Activity back into Data Objects or Process Data Outputs.“ (Axway et al., 2009: p.199). It associates e.g. a task to a document\" (Brun 2010)" ;
-  rdfs:label "DataAssociation" ;
-  rdfs:subClassOf ANBPM:Association ;
-.
 ANBPM:DataInput
   rdf:type owl:ObjectProperty ;
 .
@@ -89,11 +76,76 @@ ANBPM:DefinedRequirements
 .
 ANBPM:Description
   rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessElements ;
+  rdfs:domain ANBPM:ProcessModel ;
   rdfs:range xsd:string ;
 .
 ANBPM:Documents
   rdf:type owl:Class ;
   rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:DomainAutomationDegree
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainChannel
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainCustomerSegment
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainFramework
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainITSystem
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainIndustry
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
+.
+ANBPM:DomainKPI
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainLanguage
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainLaw
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainLevelofDetail
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainOrgUnits
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcedureDescription
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcessInput
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcessResult
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainProcessType
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainReferenceModel
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:DomainRoles
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ElementBelongsToLane
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Defines which Element belongs to a lane" ;
+  rdfs:domain ANBPM:ProcessElements ;
+  rdfs:range ANBPM:Lane ;
+.
+ANBPM:ElementName
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "If a ID is used for the Instance Name this can be used instead for the name" ;
+  rdfs:range xsd:string ;
 .
 ANBPM:EndEvent
   rdf:type owl:Class ;
@@ -123,7 +175,7 @@ ANBPM:Extensions
   rdf:type owl:Class ;
   rdfs:subClassOf ANBPM:ProcessElements ;
 .
-ANBPM:External_Parties
+ANBPM:ExternalParties
   rdf:type owl:Class ;
   rdfs:subClassOf ANBPM:Extensions ;
 .
@@ -158,6 +210,8 @@ ANBPM:Group
 .
 ANBPM:ID
   rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessElements ;
+  rdfs:domain ANBPM:ProcessModel ;
   rdfs:range xsd:string ;
 .
 ANBPM:ITSystem
@@ -173,6 +227,17 @@ ANBPM:IntermediateEvent
   rdf:type owl:Class ;
   rdfs:label "IntermediateEvent" ;
   rdfs:subClassOf ANBPM:Event ;
+.
+ANBPM:IsBlackboxPool
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:Pool ;
+  rdfs:range xsd:boolean ;
+.
+ANBPM:IsGrouping
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Defines the Elements in a Group" ;
+  rdfs:domain ANBPM:Group ;
+  rdfs:range ANBPM:ProcessElements ;
 .
 ANBPM:KPI
   rdf:type owl:Class ;
@@ -190,6 +255,7 @@ BPMN does not specify the usage of Lanes""" ;
 .
 ANBPM:Language
   rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
   rdfs:range xsd:string ;
 .
 ANBPM:ManualTask
@@ -224,11 +290,30 @@ ANBPM:MessageStartEvent
 .
 ANBPM:ModelCreationDate
   rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
   rdfs:range xsd:date ;
+.
+ANBPM:ModelInput
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "Input description on Model level" ;
+  rdfs:domain ANBPM:ProcessModel ;
+.
+ANBPM:ModellingTool
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
 .
 ANBPM:OrgUnits
   rdf:type owl:Class ;
   rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Organisation
+  rdf:type owl:Class ;
+  rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:OriginalModel
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "To create a connection to the corresponding business process model in the BPM-Repository" ;
+  rdfs:domain ANBPM:ProcessModel ;
 .
 ANBPM:ParallelGateway
   rdf:type owl:Class ;
@@ -241,7 +326,9 @@ ANBPM:Participant
 .
 ANBPM:PartofProcessModel
   rdf:type owl:ObjectProperty ;
+  rdfs:comment "To connect the model elements with the Model" ;
   rdfs:domain ANBPM:ProcessElements ;
+  rdfs:range ANBPM:ProcessModel ;
 .
 ANBPM:Pool
   rdf:type owl:Class ;
@@ -262,6 +349,7 @@ ANBPM:ProcessModel
 .
 ANBPM:ProcessType
   rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
 .
 ANBPM:Products
   rdf:type owl:Class ;
@@ -272,8 +360,21 @@ ANBPM:ReceiveTask
   rdfs:label "ReceiveTask" ;
   rdfs:subClassOf ANBPM:Task ;
 .
+ANBPM:ReferencedControlObjective
+  rdf:type owl:ObjectProperty ;
+.
 ANBPM:ReferencedControls
   rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedDocument
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedExternalParties
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedITSystem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:Activity ;
 .
 ANBPM:ReferencedKPI
   rdf:type owl:ObjectProperty ;
@@ -284,7 +385,22 @@ ANBPM:ReferencedMeasures
 ANBPM:ReferencedNorm
   rdf:type owl:ObjectProperty ;
 .
+ANBPM:ReferencedOrgUnit
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedOrganisation
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedProducts
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedResource
+  rdf:type owl:ObjectProperty ;
+.
 ANBPM:ReferencedRisk
+  rdf:type owl:ObjectProperty ;
+.
+ANBPM:ReferencedRole
   rdf:type owl:ObjectProperty ;
 .
 ANBPM:ReferencedTouchpoint
@@ -296,6 +412,8 @@ ANBPM:Resource
 .
 ANBPM:Result
   rdf:type owl:DatatypeProperty ;
+  rdfs:comment "Also known as output" ;
+  rdfs:domain ANBPM:ProcessModel ;
 .
 ANBPM:Risk
   rdf:type owl:Class ;
@@ -304,6 +422,10 @@ ANBPM:Risk
 ANBPM:Role
   rdf:type owl:Class ;
   rdfs:subClassOf ANBPM:Extensions ;
+.
+ANBPM:Scope
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
 .
 ANBPM:ScriptTask
   rdf:type owl:Class ;
@@ -330,9 +452,27 @@ ANBPM:StartEvent
   rdfs:label "StartEvent" ;
   rdfs:subClassOf ANBPM:Event ;
 .
+ANBPM:SubAssociationElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Describes the BPMN Element that has an incoming annotation" ;
+  rdfs:domain ANBPM:BPMN20 ;
+  rdfs:range ANBPM:BPMN20 ;
+.
 ANBPM:SubProcess
   rdf:type owl:Class ;
   rdfs:subClassOf ANBPM:Activity ;
+.
+ANBPM:SubmessageElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Describes the BPMN Element following the instance in a message flow" ;
+  rdfs:domain ANBPM:BPMN20 ;
+  rdfs:range ANBPM:BPMN20 ;
+.
+ANBPM:SubsequenceElement
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Describes the BPMN Element following the instance in a sequence flow" ;
+  rdfs:domain ANBPM:BPMN20 ;
+  rdfs:range ANBPM:BPMN20 ;
 .
 ANBPM:Task
   rdf:type owl:Class ;
@@ -365,31 +505,19 @@ ANBPM:Touchpoint
 .
 ANBPM:Trigger
   rdf:type owl:DatatypeProperty ;
-.
-ANBPM:UsedDocument
-  rdf:type owl:ObjectProperty ;
-.
-ANBPM:UsedExternalParties
-  rdf:type owl:ObjectProperty ;
-.
-ANBPM:UsedITSystem
-  rdf:type owl:ObjectProperty ;
-  rdfs:domain ANBPM:Activity ;
-.
-ANBPM:UsedOrgUnit
-  rdf:type owl:ObjectProperty ;
-.
-ANBPM:UsedProducts
-  rdf:type owl:ObjectProperty ;
-.
-ANBPM:UsedResource
-  rdf:type owl:ObjectProperty ;
-.
-ANBPM:UsedRole
-  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
 .
 ANBPM:UserTask
   rdf:type owl:Class ;
   rdfs:label "UserTask" ;
   rdfs:subClassOf ANBPM:Task ;
+.
+ANBPM:Version
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain ANBPM:ProcessModel ;
+.
+ANBPM:laneBelongsToPool
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain ANBPM:Lane ;
+  rdfs:range ANBPM:Pool ;
 .
